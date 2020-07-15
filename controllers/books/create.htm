@@ -49,12 +49,5 @@
 
 <?php endif ?>
 
-<?php
-      $this->addJs('/plugins/codalia/bookend/assets/js/lang/en.js');
-      $this->addJs('/plugins/codalia/bookend/assets/js/book.js'); 
-      $this->addJs('/plugins/codalia/bookend/assets/js/codalia-ajax.js');
-      $this->addJs('/plugins/codalia/bookend/assets/js/codalia-dynamic-item.js');
-      $this->addJs('/plugins/codalia/bookend/assets/js/publication.js');
-      $this->addCss(url('plugins/codalia/bookend/assets/css/extra.css'));
-?>
+<?php $this->loadScripts(); ?>
 

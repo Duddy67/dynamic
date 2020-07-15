@@ -77,6 +77,18 @@ class Books extends Controller
         return $this->asExtension('FormController')->update($recordId, $context);
     }
 
+    public function loadScripts()
+    {
+	$preferences = \Backend\Models\UserPreference::forUser()->get('backend::backend.preferences');
+
+	$this->addJs('/plugins/codalia/bookend/assets/js/lang/'.$preferences['locale'].'.js');
+	$this->addJs('/plugins/codalia/bookend/assets/js/book.js');
+	$this->addJs('/plugins/codalia/bookend/assets/js/codalia-ajax.js');
+	$this->addJs('/plugins/codalia/bookend/assets/js/codalia-dynamic-item.js');
+	$this->addJs('/plugins/codalia/bookend/assets/js/publication.js');
+	$this->addCss(url('plugins/codalia/bookend/assets/css/extra.css'));
+    }
+
     public function listOverrideColumnValue($record, $columnName, $definition = null)
     {
         if ($record->checked_out && $columnName == 'title') {
