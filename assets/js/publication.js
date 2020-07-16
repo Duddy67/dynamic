@@ -176,6 +176,11 @@
 
     // Datetime fields.
     GETTER.publication.createDateTimeFields('release_date', idNb, 'publication-row-2-cell-3-'+idNb, data.release_date, true);
+
+
+    attribs = {'data-control':'popup', 'data-handler':'onLoadContent', 'data-extra-data':'{idNb: '+idNb+', dynamicItemType: "publication"}', 'href':'javascript:;', 'class':'btn btn-primary', 'id':'publication-select-'+idNb};
+    $('#publication-row-2-cell-4-'+idNb).append(GETTER.publication.createElement('a', attribs));
+    $('#publication-select-'+idNb).text('Select');
   }
 
   reverseOrder = function(direction, idNb, dynamicItemType) {
@@ -194,6 +199,13 @@
 
   afterRemoveItem = function(idNb, dynamicItemType) {
     // Execute here possible tasks after the item deletion.
+  }
+
+  selectCategoryItem = function(id, name, idNb, dynamicItemType) {
+    alert(id+' - '+name+' - '+idNb+' - '+dynamicItemType);
+    // Calls the parent function from the corresponding instance.
+    //GETTER[dynamicItemType].selectItem(id, name, idNb, 'school', true);
+    $('.modal').trigger('close.oc.popup');
   }
 
 })(jQuery);

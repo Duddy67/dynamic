@@ -111,12 +111,16 @@ div.checked-out >span.lock:before {
   text-align: center;
 }
 
+.publication-cell-1-row-2 {
+  width: 18%;
+}
+
 .publication-cell-2-row-2 {
   width: 10%;
 }
 
 .publication-cell-3-row-2 {
-  width: 50%;
+  width: 40%;
 }
 
 .datetime-field {

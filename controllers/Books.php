@@ -77,6 +77,21 @@ class Books extends Controller
         return $this->asExtension('FormController')->update($recordId, $context);
     }
 
+    public function onLoadContent()
+    {
+	$config = $this->makeConfig('$/codalia/bookend/models/category/columns.yaml');
+	$config->model = new \Codalia\Bookend\Models\Category;
+	$idNb = post('idNb');
+	$dynamicItemType = post('dynamicItemType');
+	$config->recordOnClick = 'selectCategoryItem(:id, \':name\', '.$idNb.',\''.$dynamicItemType.'\');';
+	$widget = $this->makeWidget('Backend\Widgets\Lists', $config);
+	$widget->bindToController();
+	$this->vars['modelList'] = $widget;
+	$this->vars['statusIcons'] = BookendHelper::instance()->getStatusIcons();
+
+	return $this->makePartial('modal_category');
+    }
+
     public function loadScripts()
     {
 	$preferences = \Backend\Models\UserPreference::forUser()->get('backend::backend.preferences');
