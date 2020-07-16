@@ -27,6 +27,20 @@
     </div>
 {% endif %}
 
+{% if book.publications.count %}  
+  <div>
+    <h4>Publications</h4>
+  {% for publication in book.publications %}
+    <ul>
+      <li>{{ publication.editor }}</li>
+      <li>{{ publication.standard }}</li>
+      <li>{{ publication.version }}</li>
+      <li>{{ publication.release_date }}</li>
+    </ul>
+  {% endfor %}
+  </div>
+{% endif %}
+
 <p class="info">
 Posted in {% if book.categories.count %},  
         {% for category in book.categories %}

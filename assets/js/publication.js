@@ -75,16 +75,18 @@
     elem = GETTER.publication.createElement('select', attribs);
 
     // Builds the select options.
+    let standards = ['isbn', 'issn', 'istc', 'isni', 'apa'];
     let options = '<option value="">- Select -</option>';
     for(let i = 0; i < 5; i++) {
-      let value = 'lev'+ (i + 1);
+      let value = standards[i];
+      let text = standards[i].toUpperCase();
       let selected = '';
 
       if(data.standard == value) {
 	selected = 'selected="selected"';
       }
 
-      options += '<option value="'+value+'" '+selected+'>Level '+(i + 1)+'</option>';
+      options += '<option value="'+value+'" '+selected+'>'+text+'</option>';
     }
 
     $('#publication-row-1-cell-2-'+idNb).append(elem);
@@ -102,16 +104,18 @@
     elem = GETTER.publication.createElement('select', attribs);
 
     // Builds the select options.
+    let translations = ['english', 'french', 'spanish', 'german', 'italian', 'russian', 'chinese', 'japanese'];
     options = '<option value="">- Select -</option>';
-    for(let i = 0; i < 5; i++) {
-      let value = 'translation'+ (i + 1);
+    for(let i = 0; i < 8; i++) {
+      let value = translations[i];
+      let text = translations[i].charAt(0).toUpperCase() + translations[i].slice(1);
       let selected = '';
 
       if(GETTER.publication.inArray(value, data.translations)) {
 	selected = 'selected="selected"';
       }
 
-      options += '<option value="'+value+'" '+selected+'>Classroom '+(i + 1)+'</option>';
+      options += '<option value="'+value+'" '+selected+'>'+text+'</option>';
     }
 
     $('#publication-row-1-cell-3-'+idNb).append(elem);
