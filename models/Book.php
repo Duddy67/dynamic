@@ -311,6 +311,12 @@ class Book extends Model
 
 	foreach ($book->publications as $publication) {
 	    $publication->attributes['translations'] = json_decode($publication->attributes['translations']);
+	    $publication->attributes['category_name'] = '';
+
+	    if ($publication->attributes['category_id']) {
+	        $publication->attributes['category_name'] = BookCategory::where('id', $publication->attributes['category_id'])->value('name');
+	    }
+
 	    $publications[] = $publication->attributes;
 	}
 
@@ -341,6 +347,7 @@ class Book extends Model
 		$publication->ebook = (int)isset($input['publication_ebook_'.$idNb]);
 		$publication->ordering = $input['publication_ordering_'.$idNb];
 		$publication->release_date = empty($input['publication_release_date_'.$idNb]) ? null : $input['publication_release_date_'.$idNb];
+		$publication->category_id = empty($input['publication_category_id_'.$idNb]) ? null : $input['publication_category_id_'.$idNb];
 		$publication->translations = '[]';
 
 		if(isset($input['publication_translations_'.$idNb])) {

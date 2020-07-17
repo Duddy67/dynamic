@@ -53,7 +53,7 @@
   populatePublicationItem = function(idNb, data) {
     // Defines the default field values.
     if(data === undefined) {
-      data = {'id':'', 'editor':'', 'translations':[], 'standard':'', 'ebook':0, 'version':'integral', 'release_date':''};
+      data = {'id':'', 'editor':'', 'translations':[], 'standard':'', 'ebook':0, 'version':'integral', 'release_date':'', 'category_id':'', 'category_name':''};
     }
 
     // Element label.
@@ -177,10 +177,23 @@
     // Datetime fields.
     GETTER.publication.createDateTimeFields('release_date', idNb, 'publication-row-2-cell-3-'+idNb, data.release_date, true);
 
+    // Element label.
+    attribs = {'title':CodaliaLang.publication.release_date_desc, 'class':'item-label', 'id':'publication-category-label-'+idNb};
+    $('#publication-row-2-cell-4-'+idNb).append(GETTER.publication.createElement('span', attribs));
+    $('#publication-category-label-'+idNb).text(CodaliaLang.publication.release_date_label);
 
-    attribs = {'data-control':'popup', 'data-handler':'onLoadContent', 'data-extra-data':'{idNb: '+idNb+', dynamicItemType: "publication"}', 'href':'javascript:;', 'class':'btn btn-primary', 'id':'publication-select-'+idNb};
+    // Creates the select button (specific to October CMS).
+    attribs = {'data-control':'popup', 'data-handler':'onLoadCategoryList', 'data-extra-data':'{idNb: '+idNb+', dynamicItemType: "publication"}', 'href':'javascript:;', 'class':'btn btn-primary select-btn', 'id':'publication-select-'+idNb};
     $('#publication-row-2-cell-4-'+idNb).append(GETTER.publication.createElement('a', attribs));
     $('#publication-select-'+idNb).text('Select');
+
+    attribs = {'type':'text', 'disabled':'disabled', 'id':'publication-category-name-'+idNb, 'class':'form-control selected-item-name', 'value':data.category_name};
+    $('#publication-row-2-cell-4-'+idNb).append(GETTER.publication.createElement('input', attribs));
+
+    // Creates the hidden input element to store the id of the selected item in the modal window.
+    attribs = {'type':'hidden', 'name':'publication_category_id_'+idNb, 'id':'publication-category-id-'+idNb, 'value':data.category_id};
+    $('#publication-row-2-cell-4-'+idNb).append(GETTER.publication.createElement('input', attribs));
+
   }
 
   reverseOrder = function(direction, idNb, dynamicItemType) {
@@ -202,10 +215,8 @@
   }
 
   selectCategoryItem = function(id, name, idNb, dynamicItemType) {
-    alert(id+' - '+name+' - '+idNb+' - '+dynamicItemType);
     // Calls the parent function from the corresponding instance.
-    //GETTER[dynamicItemType].selectItem(id, name, idNb, 'school', true);
-    $('.modal').trigger('close.oc.popup');
+    GETTER[dynamicItemType].selectItem(id, name, idNb, 'category', true);
   }
 
 })(jQuery);

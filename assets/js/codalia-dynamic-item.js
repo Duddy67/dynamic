@@ -316,7 +316,8 @@ Codalia.DynamicItem = class {
     }
 
     if(close) {
-      SqueezeBox.close();
+      // Specific to October CMS.
+      $('.modal').trigger('close.oc.popup');
     }
   }
 

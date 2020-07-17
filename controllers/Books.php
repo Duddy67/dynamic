@@ -77,13 +77,17 @@ class Books extends Controller
         return $this->asExtension('FormController')->update($recordId, $context);
     }
 
-    public function onLoadContent()
+    public function onLoadCategoryList()
     {
 	$config = $this->makeConfig('$/codalia/bookend/models/category/columns.yaml');
 	$config->model = new \Codalia\Bookend\Models\Category;
+	$config->recordsPerPage = 10;
+	$config->showPageNumbers = true;
+	//
 	$idNb = post('idNb');
 	$dynamicItemType = post('dynamicItemType');
 	$config->recordOnClick = 'selectCategoryItem(:id, \':name\', '.$idNb.',\''.$dynamicItemType.'\');';
+
 	$widget = $this->makeWidget('Backend\Widgets\Lists', $config);
 	$widget->bindToController();
 	$this->vars['modelList'] = $widget;

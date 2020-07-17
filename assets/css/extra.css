@@ -123,8 +123,12 @@ div.checked-out >span.lock:before {
   width: 40%;
 }
 
+.publication-cell-4-row-2 {
+  width: 40%;
+}
+
 .datetime-field {
-  width: 30%;
+  width: 40%;
   float: left;
   margin-right: 10px;
 }
@@ -211,10 +215,10 @@ div[class$='-even'] {
 }
 
 .select-btn {
-  border-top-left-radius: 0 !important;
-  border-bottom-left-radius: 0 !important;
+  float: left;
+  margin-right: 15px;
 }
 
 .selected-item-name {
-  width: 300px;
+  width: 200px;
 }

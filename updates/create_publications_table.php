@@ -18,6 +18,7 @@ class CreatePublicationsTable extends Migration
 	    $table->char('version', 15)->nullable();
 	    $table->boolean('ebook')->nullable();
 	    $table->timestamp('release_date')->nullable();
+	    $table->integer('category_id')->unsigned()->nullable();
 	    $table->integer('ordering')->unsigned();
         });
     }
