@@ -310,6 +310,7 @@ Codalia.DynamicItem = class {
   */
   selectItem(id, name, idNb, type, close) {
     let item = document.getElementById(this.itemType+'-'+type+'-id-'+idNb);
+
     if(item.value != id) {
       item.value = id;
       document.getElementById(this.itemType+'-'+type+'-name-'+idNb).value = name;

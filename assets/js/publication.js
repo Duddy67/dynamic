@@ -183,7 +183,7 @@
     $('#publication-category-label-'+idNb).text(CodaliaLang.publication.release_date_label);
 
     // Creates the select button (specific to October CMS).
-    attribs = {'data-control':'popup', 'data-handler':'onLoadCategoryList', 'data-extra-data':'{idNb: '+idNb+', dynamicItemType: "publication"}', 'href':'javascript:;', 'class':'btn btn-primary select-btn', 'id':'publication-select-'+idNb};
+    attribs = {'data-control':'popup', 'data-handler':'onLoadCategoryList', 'href':'javascript:;', 'onclick':'setCurrentItemData('+idNb+', "publication");', 'class':'btn btn-primary select-btn', 'id':'publication-select-'+idNb};
     $('#publication-row-2-cell-4-'+idNb).append(GETTER.publication.createElement('a', attribs));
     $('#publication-select-'+idNb).text('Select');
 
@@ -214,9 +214,17 @@
     // Execute here possible tasks after the item deletion.
   }
 
-  selectCategoryItem = function(id, name, idNb, dynamicItemType) {
+  selectCategoryItem = function(id, name) {
+    // Fetches the data previously set.
+    let idNb = $('#current-item-id').val();
+    let dynamicItemType = $('#current-item-type').val();
     // Calls the parent function from the corresponding instance.
     GETTER[dynamicItemType].selectItem(id, name, idNb, 'category', true);
+  }
+
+  setCurrentItemData = function(idNb, dynamicItemType) {
+    $('#current-item-id').val(idNb);
+    $('#current-item-type').val(dynamicItemType);
   }
 
 })(jQuery);

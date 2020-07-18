@@ -25,11 +25,15 @@ class Books extends Controller
     public $listConfig = 'config_list.yaml';
 
     public $requiredPermissions = ['codalia.bookend.access_books'];
-
+    public $listWidget = null;
+    public $toolbarWidget = null;
 
     public function __construct()
     {
         parent::__construct();
+
+        $this->createListWidget();
+        $this->createToolbarWidget();
 
         BackendMenu::setContext('Codalia.Bookend', 'bookend', 'books');
     }
@@ -79,21 +83,30 @@ class Books extends Controller
 
     public function onLoadCategoryList()
     {
+	$this->vars['toolbar'] = $this->toolbarWidget;
+	$this->vars['modelList'] = $this->listWidget;
+	return $this->makePartial('modal_category');
+    }
+
+    public function createToolbarWidget()
+    {
+        $config = ['search' => ['prompt' => 'backend::lang.list.search_prompt']];
+	$this->toolbarWidget = $this->makeWidget('Backend\Widgets\Toolbar', $config);
+	$this->toolbarWidget->bindToController();
+    }
+
+    public function createListWidget()
+    {
 	$config = $this->makeConfig('$/codalia/bookend/models/category/columns.yaml');
 	$config->model = new \Codalia\Bookend\Models\Category;
 	$config->recordsPerPage = 10;
 	$config->showPageNumbers = true;
-	//
-	$idNb = post('idNb');
-	$dynamicItemType = post('dynamicItemType');
-	$config->recordOnClick = 'selectCategoryItem(:id, \':name\', '.$idNb.',\''.$dynamicItemType.'\');';
+	$config->recordOnClick = 'selectCategoryItem(:id, \':name\');';
 
-	$widget = $this->makeWidget('Backend\Widgets\Lists', $config);
-	$widget->bindToController();
-	$this->vars['modelList'] = $widget;
+	$this->listWidget = $this->makeWidget('Backend\Widgets\Lists', $config);
+	$this->listWidget->bindToController();
+
 	$this->vars['statusIcons'] = BookendHelper::instance()->getStatusIcons();
-
-	return $this->makePartial('modal_category');
     }
 
     public function loadScripts()
