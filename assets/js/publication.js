@@ -178,9 +178,9 @@
     GETTER.publication.createDateTimeFields('release_date', idNb, 'publication-row-2-cell-3-'+idNb, data.release_date, true);
 
     // Element label.
-    attribs = {'title':CodaliaLang.publication.release_date_desc, 'class':'item-label', 'id':'publication-category-label-'+idNb};
+    attribs = {'title':CodaliaLang.publication.category_desc, 'class':'item-label', 'id':'publication-category-label-'+idNb};
     $('#publication-row-2-cell-4-'+idNb).append(GETTER.publication.createElement('span', attribs));
-    $('#publication-category-label-'+idNb).text(CodaliaLang.publication.release_date_label);
+    $('#publication-category-label-'+idNb).text(CodaliaLang.publication.category_label);
 
     // Creates the select button (specific to October CMS).
     attribs = {'data-control':'popup', 'data-handler':'onLoadCategoryList', 'href':'javascript:;', 'onclick':'setCurrentItemData('+idNb+', "publication");', 'class':'btn btn-primary select-btn', 'id':'publication-select-'+idNb};
@@ -215,6 +215,7 @@
   }
 
   selectCategoryItem = function(id, name) {
+    name = name.replace('\+', ' ');
     // Fetches the data previously set.
     let idNb = $('#current-item-id').val();
     let dynamicItemType = $('#current-item-type').val();

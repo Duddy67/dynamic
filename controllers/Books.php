@@ -26,14 +26,14 @@ class Books extends Controller
 
     public $requiredPermissions = ['codalia.bookend.access_books'];
     public $listWidget = null;
-    public $toolbarWidget = null;
+    public $searchWidget = null;
 
     public function __construct()
     {
         parent::__construct();
 
         $this->createListWidget();
-        $this->createToolbarWidget();
+	$this->createSearchWidget();
 
         BackendMenu::setContext('Codalia.Bookend', 'bookend', 'books');
     }
@@ -83,16 +83,24 @@ class Books extends Controller
 
     public function onLoadCategoryList()
     {
-	$this->vars['toolbar'] = $this->toolbarWidget;
+	$this->vars['search'] = $this->searchWidget;
 	$this->vars['modelList'] = $this->listWidget;
 	return $this->makePartial('modal_category');
     }
 
-    public function createToolbarWidget()
+    public function createSearchWidget()
     {
-        $config = ['search' => ['prompt' => 'backend::lang.list.search_prompt']];
-	$this->toolbarWidget = $this->makeWidget('Backend\Widgets\Toolbar', $config);
-	$this->toolbarWidget->bindToController();
+        $config = ['prompt' => 'backend::lang.list.search_prompt'];
+        $this->searchWidget = $this->makeWidget('Backend\Widgets\Search', $config);
+        $this->searchWidget->bindToController();
+
+	/*
+	 * Link the Search Widget to the List Widget
+	 */
+	$this->searchWidget->bindEvent('search.submit', function () {
+	    $this->listWidget->setSearchTerm($this->searchWidget->getActiveTerm(), true);
+	    return $this->listWidget->onRefresh();
+	});
     }
 
     public function createListWidget()
@@ -105,6 +113,11 @@ class Books extends Controller
 
 	$this->listWidget = $this->makeWidget('Backend\Widgets\Lists', $config);
 	$this->listWidget->bindToController();
+
+        $this->listWidget->bindEvent('list.injectRowClass', function ($record) {
+	    // Only published records can be selected.
+	    return ($record->status == 'published') ? '' : 'safe disabled nolink';
+        });
 
 	$this->vars['statusIcons'] = BookendHelper::instance()->getStatusIcons();
     }

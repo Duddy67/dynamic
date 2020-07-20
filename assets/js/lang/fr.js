@@ -15,6 +15,7 @@ var CodaliaLang = {
 		    "ebook_label":"Ebook", "ebook_desc":"If the book is available in Ebook format.",
 		    "release_date_label":"Date de parution", "release_date_desc":"The release date of the book.",
 		    "integral_version_label":"Intégrale", "integral_version_desc":"The book is in integral version.",
-		    "redacted_version_label":"Expurgée", "redacted_version_desc":"The book is in redacted version."
+		    "redacted_version_label":"Expurgée", "redacted_version_desc":"The book is in redacted version.",
+		    "category_label":"Category", "category_desc":"The book's category."
   }
 }
