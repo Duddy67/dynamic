@@ -314,7 +314,8 @@ class Book extends Model
 	    $publication->attributes['category_name'] = '';
 
 	    if ($publication->attributes['category_id']) {
-	        $publication->attributes['category_name'] = BookCategory::where('id', $publication->attributes['category_id'])->value('name');
+	        $cat = BookCategory::where('id', $publication->attributes['category_id'])->get(['name', 'status'])->first()->toArray();
+	        $publication->attributes['category_name'] = ($cat['status'] == 'published') ? $cat['name'] : '[ '.$cat['name'].' ]';
 	    }
 
 	    $publications[] = $publication->attributes;
