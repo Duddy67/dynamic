@@ -173,9 +173,19 @@ class Books extends Controller
 
             foreach ($checkedIds as $recordId) {
 	        // Checks that book does exist and the current user has the required access levels.
-                if ((!$book = Book::find($recordId)) || !$book->canEdit($this->user) || $book->checked_out) {
+                if (!$book = Book::find($recordId)) {
                     continue;
                 }
+
+		if (!$book->canEdit($this->user)) {
+		    Flash::error(Lang::get('codalia.bookend::lang.action.not_allowed_to_modify_item', ['name' => $book->title]));
+		    return;
+		}
+
+		if ($book->checked_out) {
+		    Flash::warning(Lang::get('codalia.bookend::lang.action.checked_out_item', ['name' => $book->title]));
+		    return;
+		}
 
                 $book->delete();
             }
