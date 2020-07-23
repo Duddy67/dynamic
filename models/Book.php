@@ -114,7 +114,7 @@ class Book extends Model
     public $hasOne = [
     ];
     public $hasMany = [
-        'orderings' => [ 'Codalia\Bookend\Models\Ordering', ],
+        'orderings' => ['Codalia\Bookend\Models\Ordering'],
         'publications' => ['Codalia\Bookend\Models\Publication']
     ];
     public $belongsTo = [

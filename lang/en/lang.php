@@ -98,6 +98,7 @@ return [
       'editing_not_allowed' => 'You are not allowed to edit this item.',
       'used_as_main_category' => 'The ":name" category cannot be deleted as it is used as main category in one or more books.',
       'checked_out_item' => 'The ":name" item cannot be deleted as it is currently checked out by a user.',
+      'used_in_publication' => 'The ":name" item cannot be deleted as it is currently used in one or more publications.',
       'not_allowed_to_modify_item' => 'You are not allowed to modify the ":name" item.',
     ],
     'sorting' => [

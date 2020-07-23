@@ -7,6 +7,7 @@ use Backend\Classes\Controller;
 use Codalia\Bookend\Models\Category;
 use BackendAuth;
 use Codalia\Bookend\Helpers\BookendHelper;
+use Codalia\Bookend\Models\Publication;
 
 /**
  * Categories Back-end Controller
@@ -95,6 +96,12 @@ class Categories extends Controller
 		// Checks if the category is set as main category in a book.
 		if ($category->books()->where('codalia_bookend_books.category_id', $recordId)->first()) {
 		    Flash::warning(Lang::get('codalia.bookend::lang.action.used_as_main_category', ['name' => $category->name]));
+		    return;
+		}
+
+		// Checks if the category is used in a publication.
+		if (Publication::where('category_id', $recordId)->first()) {
+		    Flash::warning(Lang::get('codalia.bookend::lang.action.used_in_publication', ['name' => $category->name]));
 		    return;
 		}
 
