@@ -24,6 +24,18 @@ Route::get('backend/codalia/bookend/books/json/{id}/{token}', function($id, $tok
 	return redirect('404');
     }
 
-    echo json_encode(Book::getPublications($id));
+    // Prepares the response.
+    $response = ['success' => true, 'message' => '', 'data' => ''];
+
+    try {
+	$data = Book::getPublications($id);
+	$response['data'] = $data;
+    }
+    catch (Exception $e) {
+	$response['success'] = false;
+	$response['message'] = $e->getMessage();
+    }
+
+    echo json_encode($response);
 
 })->middleware('web');

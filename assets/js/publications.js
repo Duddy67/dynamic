@@ -42,11 +42,11 @@
   /** Callback functions **/
 
   getAjaxResult = function(result) {
-    if(result) {
-      $.each(result, function(i, item) { GETTER.publication.createItem(item); });
+    if(result.success === true) {
+      $.each(result.data, function(i, item) { GETTER.publication.createItem(item); });
     }
     else {
-      alert('Query error !');
+      alert('Error: '+result.message);
     }
   }
 
