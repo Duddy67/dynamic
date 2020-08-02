@@ -130,7 +130,7 @@ class Books extends Controller
 	$this->addJs('/plugins/codalia/bookend/assets/js/book.js');
 	$this->addJs('/plugins/codalia/bookend/assets/js/codalia-ajax.js');
 	$this->addJs('/plugins/codalia/bookend/assets/js/codalia-dynamic-item.js');
-	$this->addJs('/plugins/codalia/bookend/assets/js/publication.js');
+	$this->addJs('/plugins/codalia/bookend/assets/js/publications.js');
 	$this->addCss(url('plugins/codalia/bookend/assets/css/extra.css'));
     }
 
